@@ -195,7 +195,7 @@ public class SSLConfig {
 
     //static final Pattern p = Pattern.compile("(?:(SSL)|(TLS))_([A-Z0-9]*)(_anon)?(_[a-zA-Z0-9]*)??(_EXPORT)?_WITH_([A-Z0-9]*)(?:_(\\d*))?([_a-zA-Z0-9]*)?_(?:(?:(SHA)(\\d*))|(MD5))");
     //Made "WITH" as optional in the above pattern to accommodate ciphers without the substring "WITH" in their cipher-names
-    static final Pattern p = Pattern.compile("(?:(SSL)|(TLS))_([A-Z0-9]*)(_anon)?(_[a-zA-Z0-9]*)??(_EXPORT)??_WITH_?([A-Z0-9]*)(?:_(\\d*))?([_a-zA-Z0-9]*)?_(?:(?:(SHA)(\\d*))|(MD5))");
+    static final Pattern p = Pattern.compile("(?:(SSL)|(TLS))_([A-Z0-9]*)(_anon)?(_[a-zA-Z0-9]*)??(_EXPORT)?(_WITH_)?([A-Z0-9]*)(?:_(\\d*))?([_a-zA-Z0-9]*)?_(?:(?:(SHA)(\\d*))|(MD5))");
     //[1 null, 2 TLS, 3 ECDHE, 4 null, 5 _ECDSA, 6 null, 7 AES, 8 128, 9 _CBC, 10 SHA, 11 256, 12 null]
     private static final int SSL_INDEX = 1;
     private static final int TLS_INDEX = 2;
@@ -203,12 +203,12 @@ public class SSLConfig {
     private static final int KEY_NEGOTIATION_PROTOCOL_ANON_INDEX = 4;
     private static final int KEY_NEGOTIATION_PROTOCOL_OTHER_INDEX = 5;
     private static final int KEY_NEGOTIATION_PROTOCOL_EXPORT_INDEX = 6;
-    private static final int ENCRYPTION_ALGORITHM_INDEX = 7;
-    private static final int ENCRYPTION_ALGORITHM_KEY_LENGTH_INDEX = 8;
-    private static final int ENCRYPTION_ALGORITHM_OTHER_INDEX = 9;
-    private static final int SHA_ALGORITHM_INDEX = 10;
-    private static final int SHA_KEY_LENGTH_INDEX = 11;
-    private static final int MD5_ALGORITHM_INDEX = 12;
+    private static final int ENCRYPTION_ALGORITHM_INDEX = 8;
+    private static final int ENCRYPTION_ALGORITHM_KEY_LENGTH_INDEX = 9;
+    private static final int ENCRYPTION_ALGORITHM_OTHER_INDEX = 10;
+    private static final int SHA_ALGORITHM_INDEX = 11;
+    private static final int SHA_KEY_LENGTH_INDEX = 12;
+    private static final int MD5_ALGORITHM_INDEX = 13;
 
     private static final int MINIMUM_STRONG_KEY_LENGTH = 128;
 
