@@ -26,9 +26,11 @@ public final class LTPAKeyUtil {
 	public static boolean ibmJCEAvailable = false;
 	public static boolean ibmJCEPlusFIPSAvailable = false;
 	public static boolean openJCEPlusAvailable = false;
+	public static boolean openJCEPlusFIPSAvailble = false;
 	public static boolean ibmJCEProviderChecked = false;
 	public static boolean ibmJCEPlusFIPSProviderChecked = false;
 	public static boolean openJCEPlusProviderChecked = false;
+	public static boolean openJCEPlusFIPSProviderChecked = false;
 
 	public static boolean javaVersionChecked = false;
 	public static boolean isJava11orHigher = false;
@@ -43,12 +45,15 @@ public final class LTPAKeyUtil {
 	public static String IBMJCE_PROVIDER = "com.ibm.crypto.provider.IBMJCE";
 	public static String IBMJCE_PLUS_FIPS_PROVIDER = "com.ibm.crypto.provider.IBMJCEPlusFIPS";
 	public static String OPENJCE_PLUS_PROVIDER = "com.ibm.crypto.plus.provider.OpenJCEPlus";
+	public static String OPENJCE_PLUS_FIPS_PROVIDER = "com.ibm.crypto.plus.provider.OpenJCEPlusFIPS";
 
 	public static final String MESSAGE_DIGEST_ALGORITHM_SHA = "SHA";
 	public static final String MESSAGE_DIGEST_ALGORITHM_SHA256 = "SHA256";
 
 	public static final String IBMJCE_NAME = "IBMJCE";
 	public static final String IBMJCE_PLUS_FIPS_NAME = "IBMJCEPlusFIPS";
+	public static final String OPENJCE_PLUS_NAME = "OpenJCEPlus";
+	public static final String OPENJCE_PLUS_FIPS_NAME = "OpenJCEPlusFIPS";
 
 	private static boolean issuedBetaMessage = false;
 
@@ -99,29 +104,62 @@ public final class LTPAKeyUtil {
 		}
 	}
 
-	public static boolean isIBMJCEPlusFIPSAvailable() {
-		if (ibmJCEPlusFIPSProviderChecked) {
-			return ibmJCEPlusFIPSAvailable;
+	// public static boolean isIBMJCEPlusFIPSAvailable() {
+	// 	if (ibmJCEPlusFIPSProviderChecked) {
+	// 		return ibmJCEPlusFIPSAvailable;
+	// 	} else {
+	// 		String ibmjceplusfipsprovider = AccessController.doPrivileged(new PrivilegedAction<String>() {
+	// 			@Override
+	// 			public String run() {
+	// 				return System.getProperty("com.ibm.jsse2.usefipsProviderName");
+	// 			}
+	// 		});
+	// 		ibmJCEPlusFIPSProviderChecked = true;
+	// 		if (ibmjceplusfipsprovider == "IBMJCEPlusFIPS" && isRunningBetaMode()) {
+	// 			ibmJCEPlusFIPSAvailable = true;
+	// 			return ibmJCEPlusFIPSAvailable;
+	// 		} else {
+	// 			if (isFIPSEnabled()) {
+	// 				// UTLE TODO: error msg - FIPS is enabled but the IBMJCEPlusFIPS is not
+	// 				// available
+	// 			}
+	// 			return false;
+	// 		}
+	// 	}
+	// }
+
+	public static boolean isOpenJCEPlusAvailable() {
+		if (openJCEPlusProviderChecked) {
+			return openJCEPlusAvailable;
 		} else {
-			String ibmjceplusfipsprovider = AccessController.doPrivileged(new PrivilegedAction<String>() {
+			openJCEPlusAvailable = JavaInfo.isSystemClassAvailable(OPENJCE_PLUS_PROVIDER);
+			openJCEPlusProviderChecked = true;
+			return openJCEPlusAvailable;
+		}
+	}
+
+	public static boolean isOpenJCEPlusFIPSAvailable() {
+		if (openJCEPlusFIPSProviderChecked) {
+			return openJCEPlusFIPSAvailble;
+		} else {
+			String openjceplusfipsprovider = AccessController.doPrivileged(new PrivilegedAction<String>() {
 				@Override
 				public String run() {
-					return System.getProperty("com.ibm.jsse2.usefipsProviderName");
+					return System.getProperty("semeru.customprofile");
 				}
 			});
-			ibmJCEPlusFIPSProviderChecked = true;
-			if (ibmjceplusfipsprovider == "IBMJCEPlusFIPS" && isRunningBetaMode()) {
-				ibmJCEPlusFIPSAvailable = true;
-				return ibmJCEPlusFIPSAvailable;
+			openJCEPlusFIPSProviderChecked = true;
+			// if (openjceplusfipsprovider == "OpenJCEPlusFIPS" && isRunningBetaMode()) {
+			if (openjceplusfipsprovider == "OpenJCEPlusFIPS") {
+				openJCEPlusFIPSAvailble = true;
+				return openJCEPlusFIPSAvailble;
 			} else {
 				if (isFIPSEnabled()) {
-					// UTLE TODO: error msg - FIPS is enabled but the IBMJCEPlusFIPS is not
-					// available
+					// Error msg - FIPS is enabled but the OpenJCEPlusFIPS is not available
 				}
 				return false;
 			}
 		}
-
 	}
 
 	static boolean isRunningBetaMode() {
@@ -142,7 +180,9 @@ public final class LTPAKeyUtil {
 		String fipsON = AccessController.doPrivileged(new PrivilegedAction<String>() {
 			@Override
 			public String run() {
-				return System.getProperty("com.ibm.jsse2.usefipsprovider");
+				if (System.getProperty("com.ibm.jsse2.usefipsprovider") != null) {
+					return System.getProperty("com.ibm.jsse2.usefipsprovider");
+				} return System.getProperty("semeru.fips");
 			}
 		});
 		if (fipsON == "true") {
@@ -150,17 +190,6 @@ public final class LTPAKeyUtil {
 		} else {
 			return false;
 		}
-	}
-
-	public static boolean isOpenJCEPlusAvailable() {
-		if (openJCEPlusProviderChecked) {
-			return openJCEPlusAvailable;
-		} else {
-			openJCEPlusAvailable = JavaInfo.isSystemClassAvailable(OPENJCE_PLUS_PROVIDER);
-			openJCEPlusProviderChecked = true;
-			return openJCEPlusAvailable;
-		}
-
 	}
 
 	private static boolean isJava11orHigher() {
