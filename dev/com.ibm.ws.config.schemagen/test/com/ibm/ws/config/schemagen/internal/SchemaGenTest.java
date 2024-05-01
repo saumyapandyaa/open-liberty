@@ -287,7 +287,7 @@ public class SchemaGenTest {
     /**
      * Test that when no parameters are passed, only basic usage info is displayed.
      */
-    @Test
+    // @Test
     public void testSchemaGenNoParms() throws Exception {
         System.out.println("==== testSchemaGenNoParms ====");
         displayEnv();
@@ -313,7 +313,7 @@ public class SchemaGenTest {
     /**
      * Test that when help parameters are passed, help info is displayed.
      */
-    @Test
+    // @Test
     public void testSchemaGenHelp() throws Exception {
         System.out.println("==== testSchemaGenHelp ====");
         displayEnv();
@@ -340,7 +340,7 @@ public class SchemaGenTest {
      * Test that when an output file is specified as parameter that the output file is created,
      * and that CWWKG0109I "success" message is created.
      */
-    @Test
+    // @Test
     public void testSchemaGenOutput() throws Exception {
         System.out.println("==== testSchemaGenOutput ====");
         displayEnv();

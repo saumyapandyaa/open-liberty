@@ -1,0 +1,11 @@
+IBM-Feature-Version: 2
+IBM-ShortName: arquillian-support-jakarta-2.1
+Subsystem-Content: arquillian-liberty-support-jakarta; version=2.1.1,
+ com.ibm.websphere.appserver.localConnector-1.0; type="osgi.subsystem.feature"
+Subsystem-Description: Jakarta Liberty Feature to support integration for the Arquillian Project
+Subsystem-ManifestVersion: 1
+Subsystem-Name: Arquillian Support Jakarta Feature
+Subsystem-SymbolicName: io.openliberty.arquillian.arquillian-support-jakarta-2.1; visibility:=public
+Subsystem-Type: osgi.subsystem.feature
+Subsystem-Version: 2.1.1
+IBM-Test-Feature: true

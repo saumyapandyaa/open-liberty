@@ -1,0 +1,23 @@
+Created-By: 21.0.2 (IBM Corporation)
+IBM-App-ForceRestart: uninstall,
+ install
+IBM-AppliesTo: io.openliberty;productVersion="2024.4.0.0"
+IBM-Feature-Version: 2
+IBM-InstallTo: core
+IBM-License-Agreement: wlp/lafiles/LA
+IBM-ProductID: io.openliberty
+IBM-ShortName: restfulWSLogging-3.0
+Subsystem-Content: io.openliberty.restfulWS-3.0; ibm.tolerates:="3.1, 4.0"; type="osgi.subsystem.feature",
+ io.openliberty.restfulWS.internal.logging.filter; version="[1.0.0,1.1.0)"
+Subsystem-Description: %description
+Subsystem-License: https://www.eclipse.org/legal/epl-2.0/
+Subsystem-Localization: OSGI-INF/l10n/io.openliberty.restfulWSLogging-3.0
+Subsystem-ManifestVersion: 1
+Subsystem-Name: Jakarta RESTful Web Services 3.0 with HTTP logging
+Subsystem-SymbolicName: io.openliberty.restfulWSLogging-3.0; visibility:=public; singleton:=true
+Subsystem-Type: osgi.subsystem.feature
+Subsystem-Vendor: IBM Corp.
+Subsystem-Version: 1.0.0
+Tool: Bnd-7.0.0.202310060912
+WLP-Activation-Type: parallel
+WLP-DisableAllFeatures-OnConflict: true
